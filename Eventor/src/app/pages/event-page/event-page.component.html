@@ -1,0 +1,26 @@
+<div class="container text-center">
+    <div *ngIf="!event">
+        <h1>404: Event not found</h1>
+    </div>
+
+    <div *ngIf="event">
+        <section class="jumbotron text-center">
+            <div class="container">
+
+                <h1 class="jumbotron-heading">{{event.name}}</h1>
+                <p>
+                    <a class="btn btn-primary my-2">Join this event!</a>
+                </p>
+
+            </div>
+        </section>
+
+
+        <app-event-details [event]="event"></app-event-details>
+
+        <h2>More information</h2>
+
+        <p>Coming soon...</p>
+    </div>
+
+</div>

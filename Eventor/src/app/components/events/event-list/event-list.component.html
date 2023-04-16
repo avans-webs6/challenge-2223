@@ -1,0 +1,11 @@
+<div class="album py-5 bg-light">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-4" *ngFor="let event of events">
+                <app-event-details [event]="event"></app-event-details>
+            </div>
+        </div>
+
+    </div>
+</div>

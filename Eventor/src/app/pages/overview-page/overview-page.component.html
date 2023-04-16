@@ -1,0 +1,25 @@
+<section class="jumbotron text-center">
+    <div class="container">
+
+        <h1 class="jumbotron-heading">Welkom op Eventor!</h1>
+        <p class="lead text-muted">Het platform voor jou volgende event!</p>
+        <p>
+            <a  (click)="showform = !showform" class="btn btn-primary my-2">Maak je eigen event!</a>
+        </p>
+
+    </div>
+</section>
+
+<div class="album py-5 bg-secondary" *ngIf="showform">
+    <div class="container">
+        <app-event-create></app-event-create>
+    </div>
+</div>
+
+<div class="album py-5 bg-light text-center">
+    <div class="container">
+        <h3>Of bekijk de events van andere!</h3>
+
+        <app-event-list></app-event-list>
+    </div>
+</div>
