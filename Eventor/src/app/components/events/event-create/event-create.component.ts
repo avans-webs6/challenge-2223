@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import Event from '../../../Event';
 
 @Component({
   selector: 'app-event-create',
@@ -7,20 +8,34 @@ import { Component } from '@angular/core';
 })
 export class EventCreateComponent {
 
-  public event: any = {
-    location: {}
-  };
+  public event: Event = this.getEmptyEvent();
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  saveEvent(){
-
-    let events = JSON.parse(localStorage.getItem('events') ?? '[]');
+  saveEvent(): void {
+    let events: Event[] = JSON.parse(localStorage.getItem('events') ?? '[]');
+    this.event.id = events.length + 1;
     events.push(this.event);
+
     localStorage.setItem('events', JSON.stringify(events));
-    this.event = { location: {} };
+    this.event = this.getEmptyEvent();
+  }
+
+  private getEmptyEvent(): Event {
+    return {
+      id: 0,
+      name: '',
+      bannerUri: '',
+      date: '',
+      time: '',
+      location: {
+        address: '',
+        city: '',
+        country: ''
+      }
+    };
   }
 }

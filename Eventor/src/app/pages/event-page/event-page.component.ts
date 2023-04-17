@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import Event from 'src/app/Event';
 
 @Component({
   selector: 'app-event-page',
@@ -8,7 +9,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 })
 export class EventPageComponent {
 
-  public event: any;
+  public event: Event | undefined;
 
   //vind meer info over routes op https://angular.io/guide/router
 
