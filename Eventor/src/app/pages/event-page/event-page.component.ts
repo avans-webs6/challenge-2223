@@ -22,8 +22,8 @@ export class EventPageComponent {
   }
 
   getEvent(){
-    let events = JSON.parse(localStorage.getItem('events') ?? '[]');
-    let event = events.find((e: any) => e.name === this.route.snapshot.paramMap.get('name'));
+    let events = JSON.parse(localStorage.getItem('events') ?? '[]') as Event[];
+    let event = events.find((e: Event) => e.name === this.route.snapshot.paramMap.get('name'));
     return event;
   }
 }
