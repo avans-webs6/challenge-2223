@@ -1,43 +1,46 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, of } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { FirebaseService } from './firebase.service';
+import { doc, collection, onSnapshot } from "firebase/firestore";
 
 @Injectable({
   providedIn: 'root'
 })
 export class EventService {
 
-  public $events: BehaviorSubject<any>;
+  //private eventsRef: AngularFireList<any> = null;
 
-  constructor() { 
+  public $events: Observable<any> = of([]);
+
+  constructor(firebase: FirebaseService) {
+
+    const eventsCol = collection(firebase.firestore, 'events');
     
-    //seed if needed
-    if(!localStorage.getItem('events')){
-      this.seedEvents();
-    }
 
-    let events = JSON.parse(localStorage.getItem('events') ?? '[]');
-    this.$events = new BehaviorSubject(events);
+
+    this.$events = new Observable((subscriber) => {
+      const eventsSnapshot = onSnapshot(eventsCol, (snapshot) => {
+        subscriber.next(snapshot.docs.map(doc => doc.data()));
+      });
+    });
+
+    
+    // //seed if needed
+    // if(!localStorage.getItem('events')){
+    //   this.seedEvents();
+    // }
+
+    // // let events = JSON.parse(localStorage.getItem('events') ?? '[]');
+    // // this.$events = new BehaviorSubject(events);
+
+    //this.eventsRef = this.db.list('event-list');
+    //this.$events = this.eventsRef.valueChanges();
   }
 
   addEvent(event: any){
-    let events = JSON.parse(localStorage.getItem('events') ?? '[]');
-    events.push(event);
-    localStorage.setItem('events', JSON.stringify(events));
-    this.$events.next(events);
-  }
-
-  seedEvents(){
-
-    console.log('Seeding events (adding 3 to localstorage)');
-    
-    let events = [
-      { id: 1, name: 'Summer BBQ', date: '14/06/2023', time: '16:00',  location: { address: '5246GT', city: 'Rosmalen', country: 'Nederland' }, bannerUri: 'https://www.shutterstock.com/image-photo/assorted-grilled-meat-vegetables-on-260nw-1807847068.jpg'},
-      { id: 2, name: 'Winter BBQ', date: '14/06/2023', time: '16:00',  location: { address: '5246GT', city: 'Rosmalen', country: 'Nederland' }, bannerUri: 'https://www.shutterstock.com/image-photo/assorted-grilled-meat-vegetables-on-260nw-1807847068.jpg' },
-      { id: 3, name: 'Spring BBQ', date: '14/06/2023', time: '16:00',  location: { address: '5246GT', city: 'Rosmalen', country: 'Nederland' }, bannerUri: 'https://www.shutterstock.com/image-photo/assorted-grilled-meat-vegetables-on-260nw-1807847068.jpg'},
-    ]
-
-    localStorage.setItem('events', JSON.stringify(events));
-
-    return events;
+    // let events = JSON.parse(localStorage.getItem('events') ?? '[]');
+    // events.push(event);
+    // localStorage.setItem('events', JSON.stringify(events));
+    // this.$events.next(events);
   }
 }

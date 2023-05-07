@@ -24,7 +24,7 @@ import { ModalComponent } from './components/shared/modal/modal.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-  FormsModule //deze moet je niet vergeten!
+    FormsModule //deze moet je niet vergeten!
   ],
   providers: [],
   bootstrap: [AppComponent]
