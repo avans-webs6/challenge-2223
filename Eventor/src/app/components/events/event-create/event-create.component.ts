@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { EventService } from 'src/app/sevices/event.service';
 
 @Component({
   selector: 'app-event-create',
@@ -11,16 +12,15 @@ export class EventCreateComponent {
     location: {}
   };
 
-  constructor() { }
+  constructor(public eventService: EventService) { }
 
   ngOnInit(): void {
   }
 
   saveEvent(){
 
-    let events = JSON.parse(localStorage.getItem('events') ?? '[]');
-    events.push(this.event);
-    localStorage.setItem('events', JSON.stringify(events));
+    this.eventService.addEvent(this.event);
     this.event = { location: {} };
+
   }
 }

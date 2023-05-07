@@ -9,6 +9,7 @@ import { EventDetailsComponent } from './components/events/event-details/event-d
 import { EventPageComponent } from './pages/event-page/event-page.component';
 import { OverviewPageComponent } from './pages/overview-page/overview-page.component';
 import { FormsModule } from '@angular/forms';
+import { ModalComponent } from './components/shared/modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { FormsModule } from '@angular/forms';
     EventCreateComponent,
     EventDetailsComponent,
     EventPageComponent,
-    OverviewPageComponent
+    OverviewPageComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,

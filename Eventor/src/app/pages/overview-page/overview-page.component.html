@@ -9,10 +9,13 @@
 
     </div>
 </section>
+<!-- 
+<app-modal>
+    <app-event-create></app-event-create>
+</app-modal> -->
 
 <div class="album py-5 bg-secondary" *ngIf="showform">
     <div class="container">
-        <app-event-create></app-event-create>
     </div>
 </div>
 
@@ -20,6 +23,6 @@
     <div class="container">
         <h3>Of bekijk de events van andere!</h3>
 
-        <app-event-list></app-event-list>
+        <app-event-list [events]="eventService.$events  | async"></app-event-list>
     </div>
 </div>
