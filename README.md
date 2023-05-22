@@ -24,4 +24,3 @@ Naast Angular maak ik gebruik van de volgende libraries:
 
 ## Challange 3
 
-ng add @angular/fire
