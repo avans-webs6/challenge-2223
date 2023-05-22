@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Observable } from 'rxjs';
+import { EventService } from 'src/app/sevices/event.service';
 
 @Component({
   selector: 'app-event-page',
@@ -8,21 +10,16 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 })
 export class EventPageComponent {
 
-  public event: any;
+  public $event: Observable<any> | undefined;
 
   //vind meer info over routes op https://angular.io/guide/router
 
-  constructor(  private route: ActivatedRoute) { 
+  constructor(  private route: ActivatedRoute, public eventService: EventService) { 
 
   }
 
   ngOnInit(): void {
-    this.event = this.getEvent();
-  }
-
-  getEvent(){
-    let events = JSON.parse(localStorage.getItem('events') ?? '[]');
-    let event = events.find((e: any) => e.name === this.route.snapshot.paramMap.get('name'));
-    return event;
+    let eventId = this.route.snapshot.paramMap.get('id');
+    this.$event = this.eventService.getEvent(eventId);  
   }
 }

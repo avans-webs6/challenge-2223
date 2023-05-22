@@ -1,9 +1,9 @@
 <div class="container text-center">
-    <div *ngIf="!event">
+    <div *ngIf="!$event">
         <h1>404: Event not found</h1>
     </div>
 
-    <div *ngIf="event">
+    <div *ngIf="$event | async as event">
         <section class="jumbotron text-center">
             <div class="container">
 
@@ -14,7 +14,6 @@
 
             </div>
         </section>
-
 
         <app-event-details [event]="event"></app-event-details>
 
