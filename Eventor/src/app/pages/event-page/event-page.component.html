@@ -1,9 +1,5 @@
-<div class="container text-center">
-    <div *ngIf="!$event">
-        <h1>404: Event not found</h1>
-    </div>
-
-    <div *ngIf="$event | async as event">
+<div class="container text-center" *ngIf="$event | async as event; else notfound">
+        
         <section class="jumbotron text-center">
             <div class="container">
 
@@ -20,6 +16,9 @@
         <h2>More information</h2>
 
         <p>Coming soon...</p>
-    </div>
-
 </div>
+
+
+<ng-template #notfound>
+    <h1>404: Event not found</h1>
+</ng-template>
