@@ -1,16 +1,18 @@
 <header>
   <div class="navbar navbar-dark bg-dark box-shadow">
     <div class="container d-flex justify-content-between">
-      <a href="#" class="navbar-brand d-flex align-items-center">
+      <a  [routerLink]="['/overview']" href="#" class="navbar-brand d-flex align-items-center">
         <i class="bi bi-calendar"></i>
         <strong> Eventory</strong>
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
+      <app-login-component></app-login-component>
     </div>
   </div>
 </header>
+
 
 <main role="main">
 

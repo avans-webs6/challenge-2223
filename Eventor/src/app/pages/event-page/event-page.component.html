@@ -11,11 +11,45 @@
             </div>
         </section>
 
-        <app-event-details [event]="event"></app-event-details>
+        <!-- <app-event-details [event]="event"></app-event-details> -->
 
-        <h2>More information</h2>
+        <div class="row groups">
+            <div class="col-md-6">
+                <h2>Participants</h2>
 
-        <p>Coming soon...</p>
+                <div>
+                    <input [(ngModel)]="participantname"><button (click)="addParticipant()">Add</button>
+                </div>
+
+                <ul>
+                    <li *ngFor="let participant of participants" [dndDraggable]="participant">
+                        {{participant.name}}
+                    </li>
+                </ul>
+        
+            </div>
+            <div class="col-md-6">
+                <h2>Groups</h2>
+
+                <div>
+                    <input [(ngModel)]="groupName"><button (click)="addGroup()">Add</button>
+                </div>
+
+                <ul>
+                    <li *ngFor="let group of groups" class="group">
+                        {{group.name}}
+                        <ul dndDropzone (dndDrop)="addToGroup(group, $event)">
+                            <li *ngFor="let participant of group.participants" [dndDraggable]="participant">
+                                {{participant.name}}
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+        
+            </div>
+        </div>
+
+        <!-- <app-event-participants [participants]="participants"></app-event-participants> -->
 </div>
 
 

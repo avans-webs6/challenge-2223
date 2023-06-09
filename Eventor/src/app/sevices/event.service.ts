@@ -1,32 +1,41 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, mergeMap, of } from 'rxjs';
 import { FirebaseService } from './firebase.service';
-import { doc, collection, onSnapshot, CollectionReference, addDoc } from "firebase/firestore";
+import { doc, collection, onSnapshot, CollectionReference, addDoc, where, query, Query } from "firebase/firestore";
 
 @Injectable({
   providedIn: 'root'
 })
 export class EventService {
 
-  private eventsRef: CollectionReference<any>;
+  private eventsRef: any;
 
+  private $currentEventId = new BehaviorSubject<any>(null);
+
+  public $currentEventParticipants: Observable<any> = of(null);
+  public $currentEvent: Observable<any> = of(null);
   public $events: Observable<any> = of([]);
 
   constructor(private firebase: FirebaseService) {
 
-    this.eventsRef = collection(firebase.firestore, 'events');
-    
-    this.$events = new Observable((subscriber) => {
-      const eventsSnapshot = onSnapshot(this.eventsRef, (snapshot) => {
-        subscriber.next(snapshot.docs.map(doc => { return {...doc.data(), id: doc.id}; }));
-      });
-    });
-  }
+   
+    this.firebase.auth.onAuthStateChanged((user) => {
 
-  addEvent(event: any){
-    addDoc(this.eventsRef, event)
+      if(!user) return;
+      
+      //this.eventsRef = collection(this.firebase.firestore, 'events');
+      this.eventsRef = query(collection(firebase.firestore, 'events'), where('owner', '==', user.uid));
+      let eventsSnapshot;
+
+      this.$events = new Observable((subscriber) => {
+        eventsSnapshot = onSnapshot(this.eventsRef, (snapshot: any) => {
+          subscriber.next(snapshot.docs.map((doc: any) => { return {...doc.data(), id: doc.id}; }));
+        });
+      });
+
+    });
+
   }
-    
 
   getEvent(id: any){
 
@@ -38,4 +47,13 @@ export class EventService {
       });
     });
   }
+
+  addEvent(event: any){
+    //addDoc(this.eventsRef, event)
+  }
+
+  selectEvent(id: any){
+    this.$currentEventId.next(id);
+  }
+
 }

@@ -1,0 +1,8 @@
+<div *ngIf="user; else notAuth" style="color:white">
+    {{user.email}} <button (click)="logout()">Logout</button>
+</div>
+<ng-template #notAuth>
+    <input type="text" [(ngModel)]="email">
+    <input type="password" [(ngModel)]="password" name="" id="">
+    <button (click)="login()">Login</button>
+</ng-template>

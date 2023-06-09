@@ -1,0 +1,15 @@
+<div class="container">
+    
+    <h1>Create a new Event</h1>
+
+    <div class="row">
+        <div class="col-md-6">    
+            <app-event-form [event]="event" (onChange)="event = $event"></app-event-form>
+        </div>
+        <div class="col-md-6">
+            
+            <app-event-details [event]="event"></app-event-details>
+        </div>
+    </div>
+
+</div>
